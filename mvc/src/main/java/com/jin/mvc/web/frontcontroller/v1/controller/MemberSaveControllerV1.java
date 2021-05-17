@@ -1,23 +1,22 @@
-package com.jin.mvc.web.servletmvc;
+package com.jin.mvc.web.frontcontroller.v1.controller;
 
 import com.jin.mvc.domain.member.Member;
 import com.jin.mvc.domain.member.MemberRepository;
+import com.jin.mvc.web.frontcontroller.v1.ControllerV1;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "mvcMemberSaveServlet", urlPatterns = "/servlet-mvc/members/save")
-public class MvcMemberSaveServlet extends HttpServlet {
+public class MemberSaveControllerV1 implements ControllerV1 {
 
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String username = req.getParameter("username");
         int age = Integer.parseInt(req.getParameter("age"));
 
@@ -30,6 +29,5 @@ public class MvcMemberSaveServlet extends HttpServlet {
         String viewPath = "/WEB-INF/views/save-result.jsp";
         RequestDispatcher dispatcher = req.getRequestDispatcher(viewPath);
         dispatcher.forward(req, resp);
-
     }
 }
